@@ -13,7 +13,6 @@ const useBinsLiquidity = (
   startBin: number | undefined,
   endBin: number | undefined
 ): BinsLiquidity[] => {
-  if (!startBin || !endBin) return [];
   const bins = fillBins(startBin, endBin);
 
   const { data, isError, isLoading } = useContractReads({
@@ -23,6 +22,8 @@ const useBinsLiquidity = (
       args: [binId],
     })),
   });
+
+  if (!startBin || !endBin) return [];
 
   if (isError) {
     return [];
