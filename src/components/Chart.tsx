@@ -8,6 +8,7 @@ import {
   Tooltip,
   Cell,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { BinResults, BinsLiquidity, ChartData } from "../types";
 import { generateChartData } from "../utils/bins";
@@ -48,7 +49,7 @@ export const BinChart: React.FC<{
   const data: ChartData[] = generateChartData(binsLiquidity, binResults);
 
   return (
-    <div className="p-4">
+    <ResponsiveContainer width="100%" height={600}>
       <BarChart
         width={1000}
         height={600}
@@ -71,19 +72,18 @@ export const BinChart: React.FC<{
         <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
         <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
         <Tooltip content={<CustomTooltip />} />
-        <Legend />
         <Bar yAxisId="left" dataKey="liquidityETH" fill="#8884d8">
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color || "#8884d8"} />
+            <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Bar>
-        <Bar yAxisId="right" dataKey="liquidityJIMBO" fill="#82ca9d">
+        <Bar yAxisId="right" dataKey="liquidityJIMBO" fill="#81ca9d">
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color || "#82ca9d"} />
+            <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Bar>
       </BarChart>
-    </div>
+    </ResponsiveContainer>
   );
 };
 

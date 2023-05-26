@@ -9,11 +9,12 @@ export default function Home() {
     <div>
       <Head>
         <title>JIMBOTRON</title>
-        <meta name="description" content="Jimbo Stats" />
+        <meta name="description" content="Jimboimage.png Stats" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <JimboStats />
+     
     </div>
   );
 }

@@ -9,7 +9,7 @@ export function fillBins(startBin: number, endBin: number) {
   return bins;
 }
 
-const BINS_FILTER = 5;
+const BINS_FILTER = 2;
 
 export const generateChartData = (
   binsLiquidity: BinsLiquidity[],
@@ -26,15 +26,19 @@ export const generateChartData = (
   } = binResults;
 
   let maxBinData: ChartData | null = null;
-  let truncatedBinsCount =
-    maxBin - activeBin - BINS_FILTER > 0 ? maxBin - activeBin - BINS_FILTER : 0;
   let initialToFloorBinsCount = 0;
+
+  // Make sure we always include the triggerBin in the chart
+  const limitBin = Math.max(triggerBin, activeBin + BINS_FILTER);
+
+  let truncatedBinsCount = maxBin - limitBin > 0 ? maxBin - limitBin : 0;
 
   const chartData = binsLiquidity
     .filter((bin) => bin.binId !== maxBin)
     .map((bin) => {
-      // Skip and count bins that are over the activeBin + BINS_FILTER
-      if (bin.binId > activeBin + BINS_FILTER && bin.binId < maxBin) {
+
+      // Skip and count bins that are over the limitBin
+      if (bin.binId > limitBin && bin.binId < maxBin) {
         return null; // this will be filtered out later
       }
 
