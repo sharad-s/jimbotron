@@ -24,10 +24,12 @@ const CustomTooltip = ({ active, payload, label }) => {
     const binId = entry.binId;
 
     return (
-      <div className="custom-tooltip">
-        <p className="label">{`${name !== "" ? name : "Bin"}: ${binId}`}</p>
-        <p className="label">{`ETH Liquidity: ${ethValue}`}</p>
-        <p className="label">{`JIMBO Liquidity: ${jimboValue}`}</p>
+      <div className="p-2 border rounded bg-white text-black">
+        <p className="text-sm mb-1">{`${
+          name !== "" ? name : "Bin"
+        }: ${binId}`}</p>
+        <p className="text-sm mb-1">{`ETH Liquidity: ${ethValue}`}</p>
+        <p className="text-sm mb-1">{`JIMBO Liquidity: ${jimboValue}`}</p>
       </div>
     );
   }
@@ -40,13 +42,15 @@ export const BinChart: React.FC<{
 }> = ({ binsLiquidity, binResults }) => {
   console.log({ binsLiquidity, binResults });
 
+  const [showTruncatedEnd, setShowTruncatedEnd] = React.useState(false);
+  const [showTruncatedStart, setShowTruncatedStart] = React.useState(false);
+
   const data: ChartData[] = generateChartData(binsLiquidity, binResults);
-  console.log({ data });
 
   return (
-    <>
+    <div className="p-4">
       <BarChart
-        width={1500}
+        width={1000}
         height={600}
         data={data}
         margin={{
@@ -68,10 +72,18 @@ export const BinChart: React.FC<{
         <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
-        <Bar yAxisId="left" dataKey="liquidityETH" fill="#8884d8" />
-        <Bar yAxisId="right" dataKey="liquidityJIMBO" fill="#82ca9d" />
+        <Bar yAxisId="left" dataKey="liquidityETH" fill="#8884d8">
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color || "#8884d8"} />
+          ))}
+        </Bar>
+        <Bar yAxisId="right" dataKey="liquidityJIMBO" fill="#82ca9d">
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color || "#82ca9d"} />
+          ))}
+        </Bar>
       </BarChart>
-    </>
+    </div>
   );
 };
 

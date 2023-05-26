@@ -17,7 +17,7 @@ const jimboPoolContract = {
   abi: ILBPair,
 };
 
-export const useBinData = () => {
+export const useBinData = (): BinResults => {
   const { data, isError, isLoading } = useContractReads({
     contracts: [
       {
