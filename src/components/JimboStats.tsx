@@ -70,9 +70,9 @@ export const JimboStats = () => {
         </div>
       </div>
       <div className="mb-6 grid grid-cols-2 sm:grid-cols-3 gap-4">
-        <StatsCard label="Start Bin ID" value={binResults.initialBin} />
+        <StatsCard label="Start Bin " value={binResults.initialBin} />
         <StatsCard
-          label="Floor Bin ID"
+          label="Floor Bin "
           value={binResults.floorBin}
           annotation={`(+${
             binResults.floorBin - binResults.initialBin
@@ -87,7 +87,7 @@ export const JimboStats = () => {
         />
         <StatsCard label="Num Anchor Bins" value={binResults.numAnchorBins} />
         <StatsCard
-          label="Active Bin ID"
+          label="Active Bin "
           value={binResults.activeBin}
           annotation={`(+${
             binResults.activeBin - binResults.floorBin
@@ -101,7 +101,7 @@ export const JimboStats = () => {
           } above activeBin)`}
         />
         <StatsCard
-          label="Max Bin ID"
+          label="Max Bin "
           value={binResults.maxBin}
           annotation={`(+${
             binResults.maxBin - binResults.floorBin
